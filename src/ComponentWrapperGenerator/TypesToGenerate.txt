@@ -1,0 +1,55 @@
+# Xamarin.Forms components
+ActivityIndicator
+BaseMenuItem
+BaseShellItem
+BoxView
+Button
+CheckBox
+ContentPage
+ContentView
+DatePicker
+#Element // Element is special so we don't generate it
+Entry
+FlyoutItem
+#FormattedString // Not used anymore because Label directly contains Span elements
+Frame
+GestureElement
+Grid
+#GridCell // Not based on real XF type
+Image
+ImageButton
+InputView
+Label
+Layout
+#MasterDetailDetailPage // Not based on real XF type
+#MasterDetailMasterPage // Not based on real XF type
+MasterDetailPage
+MenuItem
+#ModalContainer // Not based on real XF type
+NavigableElement
+Page
+ProgressBar
+ScrollView
+Shell
+ShellContent
+#ShellFlyoutHeader // Not based on real XF type
+ShellGroupItem
+ShellItem
+ShellSection
+Slider
+Span
+StackLayout
+Stepper
+#StyleSheet // Not based on real XF type
+Switch
+Tab
+TabBar
+TabbedPage
+TemplatedPage
+TemplatedView
+TimePicker
+View
+VisualElement
+
+# Xamarin.Forms.DualScreen components
+TwoPaneView

@@ -1,0 +1,132 @@
+﻿<Shell OnNavigated="OnNavigated"
+       OnNavigating="OnNavigating"
+       FlyoutBackgroundImage="@(new FileImageSource { File = "photo.jpg" })"
+       FlyoutBackgroundImageAspect="Aspect.AspectFill"
+       FlyoutHeaderBehavior="FlyoutHeaderBehavior.CollapseOnScroll">
+    <FlyoutHeader>
+        <XaminalsFlyoutHeader />
+    </FlyoutHeader>
+
+    <ChildContent>
+        <FlyoutItem Route="animals"
+                    Title="Animals"
+                    FlyoutDisplayOptions="FlyoutDisplayOptions.AsMultipleItems">
+            <Tab Title="Domestic"
+                 Route="domestic"
+                 Icon="@(new FileImageSource { File="paw.png" })">
+                <ShellContent Route="cats"
+                              Title="Cats"
+                              Icon="@(new FileImageSource { File="cat.png" })">
+                    <CatsPage />
+                </ShellContent>
+
+                <ShellContent Route="dogs"
+                              Title="Dogs"
+                              Icon="@(new FileImageSource { File="dog.png" })">
+                    <DogsPage />
+                </ShellContent>
+            </Tab>
+
+            <ShellContent Route="monkeys"
+                          Title="Monkeys"
+                          Icon="@(new FileImageSource { File="monkey.png" })">
+                <MonkeysPage />
+            </ShellContent>
+
+            <ShellContent Route="elephants"
+                          Title="Elephants"
+                          Icon="@(new FileImageSource { File="elephant.png" })">
+                <ElephantsPage />
+            </ShellContent>
+
+            <ShellContent Route="bears"
+                          Title="Bears"
+                          Icon="@(new FileImageSource { File="bear.png" })">
+                <BearsPage />
+            </ShellContent>
+        </FlyoutItem>
+
+        <ShellContent Route="about"
+                      Title="About"
+                      Icon="@(new FileImageSource { File="info.png" })">
+            <AboutPage />
+        </ShellContent>
+
+        <MenuItem Text="Random"
+                  IconImageSource="@(new FileImageSource { File="random.png" })"
+                  OnClick="OnRandomClick" />
+        <MenuItem Text="Help"
+                  IconImageSource="@(new FileImageSource { File="help.png" })"
+                  OnClick="OnHelpClick" />
+    </ChildContent>
+</Shell>
+
+@code
+{
+    void OnNavigated(ShellNavigatedEventArgs e)
+    {
+    }
+
+    void OnNavigating(ShellNavigatingEventArgs e)
+    {
+    }
+
+    protected override void OnInitialized()
+    {
+        RegisterRoutes();
+    }
+
+    void RegisterRoutes()
+    {
+        //routes.Add("monkeydetails", typeof(MonkeyDetailPage));
+        //routes.Add("beardetails", typeof(BearDetailPage));
+        //routes.Add("catdetails", typeof(CatDetailPage));
+        //routes.Add("dogdetails", typeof(DogDetailPage));
+        //routes.Add("elephantdetails", typeof(ElephantDetailPage));
+
+        foreach (var item in routes)
+        {
+            Routing.RegisterRoute(item.Key, item.Value);
+        }
+    }
+
+    Random rand = new Random();
+    Dictionary<string, Type> routes = new Dictionary<string, Type>();
+    public Dictionary<string, Type> Routes { get { return routes; } }
+
+    async Task OnRandomClick()
+    {
+        string destinationRoute = routes.ElementAt(rand.Next(0, routes.Count)).Key;
+        string animalName = null;
+
+        switch (destinationRoute)
+        {
+            case "monkeydetails":
+                //animalName = MonkeyData.Monkeys.ElementAt(rand.Next(0, MonkeyData.Monkeys.Count)).Name;
+                break;
+            case "beardetails":
+                //animalName = BearData.Bears.ElementAt(rand.Next(0, BearData.Bears.Count)).Name;
+                break;
+            case "catdetails":
+                //animalName = CatData.Cats.ElementAt(rand.Next(0, CatData.Cats.Count)).Name;
+                break;
+            case "dogdetails":
+                //animalName = DogData.Dogs.ElementAt(rand.Next(0, DogData.Dogs.Count)).Name;
+                break;
+            case "elephantdetails":
+                //animalName = ElephantData.Elephants.ElementAt(rand.Next(0, ElephantData.Elephants.Count)).Name;
+                break;
+        }
+
+        var currentShell = Xamarin.Forms.Shell.Current;
+        var state = currentShell.CurrentState;
+        await currentShell.GoToAsync($"{state.Location}/{destinationRoute}?name={animalName}");
+        currentShell.FlyoutIsPresented = false;
+    }
+
+    async Task OnHelpClick()
+    {
+        var helpUrl = "https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell";
+        await Launcher.OpenAsync(helpUrl);
+    }
+}

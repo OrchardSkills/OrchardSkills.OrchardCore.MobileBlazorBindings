@@ -1,0 +1,5 @@
+<Project>
+  <PropertyGroup Condition=" '$(IsTestProject)' == 'true' ">
+    <Exclude>[xunit.*]*</Exclude>
+  </PropertyGroup>
+</Project>
